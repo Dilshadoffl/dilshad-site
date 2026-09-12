@@ -86,9 +86,9 @@
 <!-- ===================== Performance: fonts loaded async so they never block first paint ===================== -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,500;1,6..96,600&family=Jost:wght@300;400;500;600&display=swap">
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,500;1,6..96,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-<noscript><link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,500;1,6..96,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
+<link rel="preload" as="style" fetchpriority="high" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;1,6..96,500&family=Jost:wght@300;400;500&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;1,6..96,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;1,6..96,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"></noscript>
 
 <style>
   :root{
@@ -182,6 +182,7 @@
 
   /* ---------- sections ---------- */
   section{padding:96px 0;border-bottom:1px solid var(--line);}
+  section:not(.hero){content-visibility:auto;contain-intrinsic-size:auto 600px;}
   .dossier{display:grid;grid-template-columns:200px 1fr;gap:56px;}
   .dossier .label{position:sticky;top:100px;align-self:start;margin:0;font-weight:500;}
   @media (max-width:760px){ .dossier{grid-template-columns:1fr;gap:22px;} .dossier .label{position:static;} }
