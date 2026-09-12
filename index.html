@@ -39,6 +39,48 @@
 }
 </script>
 
+<!-- ===================== Structured data: FAQ rich result targeting "who is dilshad" ===================== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Who is Dilshad?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dilshad is an independent cryptocurrency trader based in India. His work is built around continuous learning, market analysis, risk management and disciplined decision-making, with a focus on understanding market movements and developing strategies that perform consistently over time."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does Dilshad do?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dilshad trades digital-asset markets, with a focus on cryptocurrency market analysis, short-term and day-trading opportunities, risk and capital management, market psychology and long-term wealth-building strategies."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where is Dilshad based?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dilshad is based in India."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is Dilshad's trading philosophy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "One successful trade can be luck. Consistent success comes from discipline. Dilshad's approach centres on research before action, risk management, emotional discipline and continuous learning."
+      }
+    }
+  ]
+}
+</script>
+
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0b'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-style='italic' font-size='38' fill='%23c9a463' text-anchor='middle'%3ED%3C/text%3E%3C/svg%3E">
 
 <!-- ===================== Performance: fonts loaded async so they never block first paint ===================== -->
@@ -176,6 +218,19 @@
   .philosophy blockquote::after{content:"”";color:var(--gold);}
   .philosophy cite{display:block;margin-top:24px;font-style:normal;}
 
+  /* ---------- faq ---------- */
+  .faq-list{max-width:660px;}
+  .faq-list details{border-bottom:1px solid var(--line);padding:20px 0;}
+  .faq-list details:first-child{padding-top:0;}
+  .faq-list summary{
+    cursor:pointer;list-style:none;font-family:"Bodoni Moda",serif;font-weight:500;
+    font-size:1.15rem;color:var(--ink);display:flex;justify-content:space-between;align-items:center;gap:16px;
+  }
+  .faq-list summary::-webkit-details-marker{display:none;}
+  .faq-list summary::after{content:"+";color:var(--gold);font-family:"Jost",sans-serif;font-size:1.3rem;flex:none;}
+  .faq-list details[open] summary::after{content:"–";}
+  .faq-list details p{margin:14px 0 0;color:#d8d4c8;font-size:1rem;font-weight:300;max-width:600px;}
+
   /* ---------- contact ---------- */
   .contact-grid{display:flex;gap:16px;flex-wrap:wrap;margin-top:32px;}
 
@@ -198,6 +253,7 @@
       <a href="#approach">Approach</a>
       <a href="#journey">Journey</a>
       <a href="#vision">Vision</a>
+      <a href="#faq">FAQ</a>
       <a href="#contact">Contact</a>
     </nav>
   </div>
@@ -309,9 +365,33 @@
     </div>
   </div>
 
+  <section id="faq">
+    <div class="wrap dossier">
+      <h2 class="label">06 — FAQ</h2>
+      <div class="faq-list">
+        <details open>
+          <summary>Who is Dilshad?</summary>
+          <p>Dilshad is an independent cryptocurrency trader based in India. His work is built around continuous learning, market analysis, risk management and disciplined decision-making, with a focus on understanding market movements and developing strategies that perform consistently over time.</p>
+        </details>
+        <details>
+          <summary>What does Dilshad do?</summary>
+          <p>Dilshad trades digital-asset markets, with a focus on cryptocurrency market analysis, short-term and day-trading opportunities, risk and capital management, market psychology and long-term wealth-building strategies.</p>
+        </details>
+        <details>
+          <summary>Where is Dilshad based?</summary>
+          <p>Dilshad is based in India.</p>
+        </details>
+        <details>
+          <summary>What is Dilshad's trading philosophy?</summary>
+          <p>"One successful trade can be luck. Consistent success comes from discipline." Dilshad's approach centres on research before action, risk management, emotional discipline and continuous learning.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
   <section id="contact">
     <div class="wrap dossier">
-      <h2 class="label">06 — Contact</h2>
+      <h2 class="label">07 — Contact</h2>
       <div>
         <h2 class="serif" style="font-weight:500;font-size:1.8rem;margin:0 0 14px;">Connect With Me</h2>
         <p style="color:var(--muted);max-width:560px;margin:0;font-size:1.02rem;font-weight:300;">
