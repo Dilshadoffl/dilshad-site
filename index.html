@@ -211,6 +211,15 @@
   .prose p + p{margin-top:22px;}
   .prose em{color:var(--ink);font-style:italic;font-family:"Bodoni Moda",serif;}
 
+  /* ---------- about photo ---------- */
+  .about-body{display:flex;gap:44px;align-items:flex-start;flex-wrap:wrap;}
+  .portrait{
+    width:220px;height:275px;flex:none;display:block;
+    border:1px solid var(--line);
+  }
+  .about-body .prose{flex:1 1 320px;min-width:280px;}
+  @media (max-width:560px){ .portrait{width:100%;height:auto;aspect-ratio:4/5;} }
+
   /* ---------- approach grid ---------- */
   .approach-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
   @media (max-width:560px){ .approach-grid{grid-template-columns:1fr;} }
@@ -306,13 +315,21 @@
   <section id="about">
     <div class="wrap dossier">
       <h2 class="label">01 — About Me</h2>
-      <div class="prose">
-        <p>
-          I'm Dilshad, an independent cryptocurrency trader based in India. My trading journey
-          is built around continuous learning, market analysis, risk management and disciplined
-          decision-making. I focus on understanding market movements and developing strategies
-          that can perform consistently over time.
-        </p>
+      <div class="about-body">
+        <svg class="portrait" viewBox="0 0 480 600" role="img" aria-label="Placeholder portrait of Dilshad">
+          <rect width="480" height="600" fill="#1a1b1e"/>
+          <rect x="18" y="18" width="444" height="564" fill="none" stroke="#8c9096" stroke-width="1"/>
+          <text x="240" y="330" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="220" fill="#c9ccd1" text-anchor="middle">D</text>
+          <text x="240" y="540" font-family="Arial, sans-serif" font-size="15" letter-spacing="4" fill="#8c9096" text-anchor="middle">PLACEHOLDER PHOTO</text>
+        </svg>
+        <div class="prose">
+          <p>
+            I'm Dilshad, an independent cryptocurrency trader based in India. My trading journey
+            is built around continuous learning, market analysis, risk management and disciplined
+            decision-making. I focus on understanding market movements and developing strategies
+            that can perform consistently over time.
+          </p>
+        </div>
       </div>
     </div>
   </section>
