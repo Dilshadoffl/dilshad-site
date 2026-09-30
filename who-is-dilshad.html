@@ -11,7 +11,7 @@
 <meta name="author" content="Dilshad">
 <link rel="canonical" href="https://dilshad.com/who-is-dilshad.html">
 <meta name="robots" content="index, follow, max-image-preview:large">
-<meta name="theme-color" content="#1a1b1e">
+<meta name="theme-color" content="#ffffff">
 
 <!-- ===================== Open Graph / social preview ===================== -->
 <meta property="og:type" content="article">
@@ -104,7 +104,7 @@
 }
 </script>
 
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%231a1b1e'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-style='italic' font-size='38' fill='%23c9ccd1' text-anchor='middle'%3ED%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23ffffff'/%3E%3Crect x='1' y='1' width='62' height='62' fill='none' stroke='%23d7e0f2' stroke-width='2'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-style='italic' font-size='38' fill='%231d4ed8' text-anchor='middle'%3ED%3C/text%3E%3C/svg%3E">
 <link rel="apple-touch-icon" sizes="180x180" href="https://dilshad.com/images/apple-touch-icon.png">
 
 <!-- ===================== Performance: fonts loaded async so they never block first paint ===================== -->
@@ -116,15 +116,17 @@
 
 <style>
   :root{
-    --bg:#1a1b1e;
-    --bg-raised:#232427;
-    --ink:#f1f0ed;
-    --muted:#9a9a99;
-    --muted-2:#65645f;
-    --line:rgba(241,240,237,0.14);
-    --gold:#c9ccd1;
-    --gold-dim:#8c9096;
-    --gold-soft:rgba(201,204,209,0.12);
+    --bg:#ffffff;
+    --bg-raised:#eef3fb;
+    --ink:#101828;
+    --muted:#57607a;
+    --muted-2:#838da3;
+    --line:rgba(16,24,40,0.12);
+    --gold:#1d4ed8;
+    --gold-dim:#4f74d1;
+    --gold-soft:rgba(29,78,216,0.10);
+    --prose:#3b4863;
+    --on-accent:#ffffff;
     --max:1100px;
     --max-article:760px;
   }
@@ -172,7 +174,7 @@
   /* ---------- nav ---------- */
   header.nav{
     position:sticky;top:0;z-index:20;
-    background:rgba(10,10,11,0.78);
+    background:rgba(255,255,255,0.78);
     backdrop-filter:blur(10px);
     border-bottom:1px solid var(--line);
   }
@@ -221,7 +223,7 @@
   section:not(.hero){content-visibility:auto;contain-intrinsic-size:auto 600px;}
   .article{max-width:var(--max-article);}
   .article h2{font-family:"Bodoni Moda",serif;font-weight:500;font-size:1.7rem;margin:0 0 22px;text-wrap:balance;}
-  .article p{font-size:1.08rem;color:#d8d4c8;font-weight:300;margin:0 0 22px;}
+  .article p{font-size:1.08rem;color:var(--prose);font-weight:300;margin:0 0 22px;}
   .article p:last-child{margin-bottom:0;}
   .article em{color:var(--ink);font-style:italic;font-family:"Bodoni Moda",serif;}
   .eyebrow{margin-bottom:16px;}
@@ -249,7 +251,7 @@
   .faq-list summary::-webkit-details-marker{display:none;}
   .faq-list summary::after{content:"+";color:var(--gold);font-family:"Jost",sans-serif;font-size:1.3rem;flex:none;}
   .faq-list details[open] summary::after{content:"\2013";}
-  .faq-list details p{margin:14px 0 0;color:#d8d4c8;font-size:1rem;font-weight:300;max-width:600px;}
+  .faq-list details p{margin:14px 0 0;color:var(--prose);font-size:1rem;font-weight:300;max-width:600px;}
   @media (prefers-reduced-motion:no-preference){
     .faq-list details[open] p{animation:faq-in .35s ease;}
     @keyframes faq-in{from{opacity:0;transform:translateY(-4px);}to{opacity:1;transform:translateY(0);}}
@@ -265,10 +267,10 @@
     transition:opacity .2s ease,background .3s,color .2s,transform .25s ease,box-shadow .3s ease,letter-spacing .25s ease;
     white-space:nowrap;
   }
-  .btn.primary{background:linear-gradient(155deg,#eef0f2,var(--gold) 55%,#9a9fa6);color:var(--bg);}
-  .btn.primary:hover{transform:translateY(-2px);letter-spacing:0.16em;box-shadow:0 10px 30px -8px rgba(201,204,209,0.45);}
+  .btn.primary{background:linear-gradient(155deg,#5b82e0,var(--gold) 55%,#13358f);color:var(--on-accent);}
+  .btn.primary:hover{transform:translateY(-2px);letter-spacing:0.16em;box-shadow:0 10px 30px -8px rgba(29,78,216,0.45);}
   .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);}
-  .btn.ghost:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px);box-shadow:0 10px 24px -12px rgba(201,204,209,0.3);}
+  .btn.ghost:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px);box-shadow:0 10px 24px -12px rgba(29,78,216,0.18);}
 
   /* ---------- disclaimer ---------- */
   .disclaimer{padding:48px 0;border-bottom:1px solid var(--line);}
