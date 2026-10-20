@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- dilshad.com site version 1.1 (v1.0 = static, no extra motion) -->
-<meta name="site-version" content="1.1">
+<!-- dilshad.com site version 1.2 (v1.0 static, v1.1 light motion, v1.2 premium scroll motion) -->
+<meta name="site-version" content="1.2">
 
 <!-- ===================== SEO: primary meta ===================== -->
 <title>Who Is Dilshad? | Entrepreneur &amp; Crypto Trader, Kerala</title>
@@ -296,6 +296,16 @@
     .faq-list details::details-content{block-size:0;overflow:hidden;transition:block-size .45s cubic-bezier(.19,1,.22,1),content-visibility .45s allow-discrete;}
     .faq-list details[open]::details-content{block-size:auto;}
   }
+
+  /* ===== motion v1.2: Apple-style scroll choreography ===== */
+  @media (prefers-reduced-motion:no-preference){
+    .hero-photo{transform-origin:50% 100%;}
+    .w{display:inline;}
+    h2.headline.reveal{filter:blur(12px);transition:opacity .9s cubic-bezier(.19,1,.22,1),transform .9s cubic-bezier(.19,1,.22,1),filter 1s cubic-bezier(.19,1,.22,1);}
+    h2.headline.reveal.in{filter:blur(0);}
+    .principle{background-image:radial-gradient(440px circle at var(--mx,-999px) var(--my,-999px),rgba(109,35,52,0.09),transparent 46%);}
+    .stagger.reveal.in > .principle:hover{background-color:#fff;}
+  }
 </style>
 </head>
 <body>
@@ -480,26 +490,92 @@
 </script>
 
 <script>
-/* motion v1.1: scroll progress, hero parallax, staggered reveals */
+/* motion v1.2: Apple-style scroll choreography (progress bar, hero scrub, word-by-word text, staggered reveals) */
 (function(){
   if(!window.matchMedia||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
   try{
-    document.querySelectorAll('.approach-grid,.focus-list').forEach(function(g){
+    var clamp=function(v,a,b){return v<a?a:v>b?b:v;};
+    var vh=window.innerHeight;
+    /* stagger groups */
+    document.querySelectorAll('.approach-grid,.focus-list,.prose').forEach(function(g){
       if(!g.classList.contains('reveal'))return;
       g.classList.add('stagger');
       Array.prototype.forEach.call(g.children,function(c,i){c.style.setProperty('--i',i);});
     });
+    /* word-by-word text scrub */
+    var blocks=[];
+    function split(node,out){
+      Array.prototype.slice.call(node.childNodes).forEach(function(n){
+        if(n.nodeType===3){
+          var parts=n.nodeValue.split(/(\s+)/),frag=document.createDocumentFragment();
+          parts.forEach(function(t){
+            if(!t)return;
+            if(/^\s+$/.test(t)){frag.appendChild(document.createTextNode(t));}
+            else{var s=document.createElement('span');s.className='w';s.textContent=t;frag.appendChild(s);out.push(s);}
+          });
+          node.replaceChild(frag,n);
+        }else if(n.nodeType===1){split(n,out);}
+      });
+    }
+    document.querySelectorAll('#about .statement,.vision-text,.philosophy blockquote').forEach(function(el){
+      var words=[];split(el,words);
+      if(words.length){words.forEach(function(w){w.style.opacity='0.2';});blocks.push({el:el,words:words,last:-1});}
+    });
+    /* hero scrub */
+    var hero=document.querySelector('.hero'),photo=document.querySelector('.hero-photo');
+    var heroEls=hero?Array.prototype.slice.call(hero.querySelectorAll('.wrap > :not(img)')):[];
+    var h1=hero&&hero.querySelector('h1');
+    var ready=false;
+    function release(el){el.style.opacity='1';el.classList.remove('rise');}
+    heroEls.forEach(function(el){el.addEventListener('animationend',function(){release(el);},{once:true});});
+    if(photo){photo.addEventListener('animationend',function(e){
+      if(e.animationName==='photo-zoom'){photo.style.opacity='1';photo.style.animation='none';photo.classList.remove('rise');ready=true;}
+    });}else{ready=true;}
+    /* progress bar + nav */
     var bar=document.createElement('div');bar.className='progress';bar.setAttribute('aria-hidden','true');document.body.appendChild(bar);
-    var nav=document.querySelector('header.nav'),photo=document.querySelector('.hero-photo'),ticking=false;
+    var nav=document.querySelector('header.nav'),ticking=false;
     function frame(){
-      var y=window.pageYOffset||0,max=document.documentElement.scrollHeight-window.innerHeight;
-      bar.style.transform='scaleX('+(max>0?Math.min(y/max,1):0)+')';
+      var y=window.pageYOffset||0,doc=document.documentElement,max=doc.scrollHeight-window.innerHeight;
+      bar.style.transform='scaleX('+(max>0?clamp(y/max,0,1):0)+')';
       if(nav)nav.classList.toggle('scrolled',y>8);
-      if(photo&&y<900)photo.style.translate='0 '+Math.min(y*0.1,50).toFixed(1)+'px';
+      /* hero */
+      if(y<vh*1.2){
+        var p=clamp(y/(vh*0.75),0,1);
+        heroEls.forEach(function(el,i){
+          if(el.classList.contains('rise'))return;
+          var isH=el===h1;
+          el.style.opacity=String(clamp(1-p*(isH?1.05:1.7),0,1));
+          el.style.translate='0 '+(-p*(isH?70:45)).toFixed(1)+'px';
+          if(isH)el.style.scale=String((1-p*0.14).toFixed(3));
+        });
+        if(photo&&ready){
+          photo.style.scale=String((1+p*0.14).toFixed(3));
+          photo.style.translate='0 '+(-p*26).toFixed(1)+'px';
+        }
+      }
+      /* words */
+      blocks.forEach(function(b){
+        var r=b.el.getBoundingClientRect();
+        if(r.bottom<-50||r.top>vh+50){if(r.top>vh+50&&b.last!==0){b.words.forEach(function(w){w.style.opacity='0.2';});b.last=0;}else if(r.bottom<-50&&b.last!==1){b.words.forEach(function(w){w.style.opacity='1';});b.last=1;}return;}
+        var p=max-y<4?1:clamp((vh*0.86-r.top)/(vh*0.46+r.height*0.55),0,1);
+        var n=b.words.length,span=p*(n+3);
+        b.words.forEach(function(w,i){
+          w.style.opacity=(0.2+0.8*clamp(span-i,0,3)/3).toFixed(2);
+        });
+        b.last=-1;
+      });
       ticking=false;
     }
     window.addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(frame);}},{passive:true});
+    window.addEventListener('resize',function(){vh=window.innerHeight;if(!ticking){ticking=true;requestAnimationFrame(frame);}});
     frame();
+    /* card spotlight */
+    if(window.matchMedia('(hover:hover) and (pointer:fine)').matches){
+      document.querySelectorAll('.principle').forEach(function(c){
+        c.addEventListener('pointermove',function(e){var r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px');});
+        c.addEventListener('pointerleave',function(){c.style.removeProperty('--mx');c.style.removeProperty('--my');});
+      });
+    }
   }catch(e){}
 })();
 </script>
