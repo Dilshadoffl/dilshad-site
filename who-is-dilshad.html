@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- dilshad.com site version 1.1 (v1.0 = static, no extra motion) -->
+<meta name="site-version" content="1.1">
 
 <!-- ===================== SEO: primary meta ===================== -->
 <title>Who Is Dilshad? | Entrepreneur &amp; Crypto Trader, Kerala</title>
@@ -272,6 +274,28 @@
   footer{background:var(--bg-alt);padding:20px 0 36px;}
   footer .wrap{max-width:880px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 24px;color:var(--muted-2);font-size:0.75rem;border-top:1px solid var(--line);padding-top:18px;margin-top:20px;}
   footer a{color:inherit;text-decoration:underline;}
+
+  /* ===== motion v1.1 (transform/opacity only; off for reduced-motion) ===== */
+  @media (prefers-reduced-motion:no-preference){
+    html{scroll-behavior:smooth;}
+    @supports (interpolate-size:allow-keywords){:root{interpolate-size:allow-keywords;}}
+    .progress{position:fixed;top:0;left:0;width:100%;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:0 50%;z-index:60;pointer-events:none;will-change:transform;}
+    header.nav{transition:box-shadow .35s;}
+    header.nav.scrolled{box-shadow:0 10px 30px -22px rgba(0,0,0,0.35);}
+    nav.links a{position:relative;}
+    nav.links a::after{content:"";position:absolute;left:0;right:0;bottom:-7px;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.19,1,.22,1);}
+    nav.links a:hover::after{transform:scaleX(1);}
+    .btn:hover{transform:translateY(-2px);}
+    .btn:active{transform:scale(.97);transition-duration:.1s;}
+    @keyframes photo-zoom{from{scale:1.07;}to{scale:1;}}
+    .hero-photo{animation-name:rise-in,photo-zoom;animation-duration:1s,1.8s;animation-timing-function:cubic-bezier(.19,1,.22,1);animation-fill-mode:forwards,both;will-change:translate;}
+    .stagger.reveal > *{opacity:0;transform:translateY(24px) scale(.985);transition:opacity .8s cubic-bezier(.19,1,.22,1),transform .8s cubic-bezier(.19,1,.22,1),box-shadow .5s;}
+    .stagger.reveal.in > *{opacity:1;transform:none;transition-delay:calc(var(--i,0) * 90ms);}
+    .approach-grid.stagger.reveal.in > *:hover{transform:translateY(-6px);box-shadow:0 26px 50px -26px rgba(0,0,0,0.28);transition-delay:0s;}
+    .focus-list.stagger.reveal.in > li:hover{transform:translateY(-3px);transition-delay:0s;}
+    .faq-list details::details-content{block-size:0;overflow:hidden;transition:block-size .45s cubic-bezier(.19,1,.22,1),content-visibility .45s allow-discrete;}
+    .faq-list details[open]::details-content{block-size:auto;}
+  }
 </style>
 </head>
 <body>
@@ -455,5 +479,29 @@
   }
 </script>
 
+<script>
+/* motion v1.1: scroll progress, hero parallax, staggered reveals */
+(function(){
+  if(!window.matchMedia||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  try{
+    document.querySelectorAll('.approach-grid,.focus-list').forEach(function(g){
+      if(!g.classList.contains('reveal'))return;
+      g.classList.add('stagger');
+      Array.prototype.forEach.call(g.children,function(c,i){c.style.setProperty('--i',i);});
+    });
+    var bar=document.createElement('div');bar.className='progress';bar.setAttribute('aria-hidden','true');document.body.appendChild(bar);
+    var nav=document.querySelector('header.nav'),photo=document.querySelector('.hero-photo'),ticking=false;
+    function frame(){
+      var y=window.pageYOffset||0,max=document.documentElement.scrollHeight-window.innerHeight;
+      bar.style.transform='scaleX('+(max>0?Math.min(y/max,1):0)+')';
+      if(nav)nav.classList.toggle('scrolled',y>8);
+      if(photo&&y<900)photo.style.translate='0 '+Math.min(y*0.1,50).toFixed(1)+'px';
+      ticking=false;
+    }
+    window.addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(frame);}},{passive:true});
+    frame();
+  }catch(e){}
+})();
+</script>
 </body>
 </html>
