@@ -20,4 +20,28 @@
       <image:title>Dilshad, independent cryptocurrency trader based in Trivandrum, Kerala</image:title>
     </image:image>
   </url>
+  <url>
+    <loc>https://dilshad.com/articles/</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dilshad.com/articles/risk-management-in-crypto-trading.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dilshad.com/articles/discipline-vs-luck-in-crypto-trading.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dilshad.com/articles/trading-psychology-emotional-discipline.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
