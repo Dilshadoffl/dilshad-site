@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- dilshad.com site version 1.4 (position sizing article) -->
-<meta name="site-version" content="1.4">
+<!-- dilshad.com site version 1.5 (animations turned off) -->
+<meta name="site-version" content="1.5">
 <title>Discipline vs Luck in Crypto Trading | Dilshad</title>
 <meta name="description" content="Why one successful trade can be luck, but consistent results come from discipline. Dilshad, a cryptocurrency trader in Kerala, India, explains his philosophy.">
 <meta name="keywords" content="Dilshad trading philosophy, discipline in crypto trading, luck vs skill trading, Dilshad crypto trader, Dilshad Kerala">
@@ -169,7 +169,7 @@
   section{padding:clamp(72px,12vw,140px) 0;}
   section.alt{background:var(--bg-alt);}
 
-  @media (prefers-reduced-motion:no-preference){
+  @media (prefers-reduced-motion:no-preference) and (min-width:99999px){
     .reveal{opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.19,1,.22,1),transform .9s cubic-bezier(.19,1,.22,1);}
     .reveal.in{opacity:1;transform:none;}
     @keyframes rise-in{from{opacity:0;transform:translateY(26px);}to{opacity:1;transform:none;}}
@@ -222,7 +222,7 @@
   footer a{color:inherit;text-decoration:underline;}
 
   /* ===== motion v1.1 (transform/opacity only; off for reduced-motion) ===== */
-  @media (prefers-reduced-motion:no-preference){
+  @media (prefers-reduced-motion:no-preference) and (min-width:99999px){
     html{scroll-behavior:smooth;}
     @supports (interpolate-size:allow-keywords){:root{interpolate-size:allow-keywords;}}
     .progress{position:fixed;top:0;left:0;width:100%;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:0 50%;z-index:60;pointer-events:none;will-change:transform;}
@@ -244,7 +244,7 @@
   }
 
   /* ===== motion v1.2: Apple-style scroll choreography ===== */
-  @media (prefers-reduced-motion:no-preference){
+  @media (prefers-reduced-motion:no-preference) and (min-width:99999px){
     .hero-photo{transform-origin:50% 100%;}
     .w{display:inline;}
     h2.headline.reveal{filter:blur(12px);transition:opacity .9s cubic-bezier(.19,1,.22,1),transform .9s cubic-bezier(.19,1,.22,1),filter 1s cubic-bezier(.19,1,.22,1);}
@@ -364,14 +364,6 @@
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
-  if (window.matchMedia && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
-    var els = document.querySelectorAll('section:not(.hero) .wrap > *, .philosophy .wrap > *');
-    els.forEach(function(e){ e.classList.add('reveal'); });
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-    }, {threshold:0.08, rootMargin:'0px 0px -6% 0px'});
-    els.forEach(function(el){ io.observe(el); });
-  }
 </script>
 </body>
 </html>
