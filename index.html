@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- dilshad.com site version 1.4 (v1.0 static, v1.1 light motion, v1.2 premium scroll motion, v1.3 articles, v1.4 position sizing article) -->
-<meta name="site-version" content="1.4">
+<!-- dilshad.com site version 1.5 (animations turned off; v1.4 has the animated version) -->
+<meta name="site-version" content="1.5">
 
 <!-- ===================== SEO: primary meta ===================== -->
 <title>Dilshad | Cryptocurrency Trader &amp; Entrepreneur in Kerala, India</title>
@@ -235,7 +235,7 @@
   section{padding:clamp(72px,12vw,140px) 0;}
   section.alt{background:var(--bg-alt);}
 
-  @media (prefers-reduced-motion:no-preference){
+  @media (prefers-reduced-motion:no-preference) and (min-width:99999px){
     .reveal{opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.19,1,.22,1),transform .9s cubic-bezier(.19,1,.22,1);}
     .reveal.in{opacity:1;transform:none;}
     @keyframes rise-in{from{opacity:0;transform:translateY(26px);}to{opacity:1;transform:none;}}
@@ -307,7 +307,7 @@
   footer a{color:inherit;text-decoration:underline;}
 
   /* ===== motion v1.1 (transform/opacity only; off for reduced-motion) ===== */
-  @media (prefers-reduced-motion:no-preference){
+  @media (prefers-reduced-motion:no-preference) and (min-width:99999px){
     html{scroll-behavior:smooth;}
     @supports (interpolate-size:allow-keywords){:root{interpolate-size:allow-keywords;}}
     .progress{position:fixed;top:0;left:0;width:100%;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:0 50%;z-index:60;pointer-events:none;will-change:transform;}
@@ -329,7 +329,7 @@
   }
 
   /* ===== motion v1.2: Apple-style scroll choreography ===== */
-  @media (prefers-reduced-motion:no-preference){
+  @media (prefers-reduced-motion:no-preference) and (min-width:99999px){
     .hero-photo{transform-origin:50% 100%;}
     .w{display:inline;}
     h2.headline.reveal{filter:blur(12px);transition:opacity .9s cubic-bezier(.19,1,.22,1),transform .9s cubic-bezier(.19,1,.22,1),filter 1s cubic-bezier(.19,1,.22,1);}
@@ -550,105 +550,7 @@
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
-  if (window.matchMedia && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
-    const els = document.querySelectorAll('section:not(.hero) .wrap > *, .philosophy .wrap > *');
-    els.forEach(e => e.classList.add('reveal'));
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-    }, {threshold:0.08, rootMargin:'0px 0px -6% 0px'});
-    els.forEach(el => io.observe(el));
-  }
 </script>
 
-<script>
-/* motion v1.2: Apple-style scroll choreography (progress bar, hero scrub, word-by-word text, staggered reveals) */
-(function(){
-  if(!window.matchMedia||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-  try{
-    var clamp=function(v,a,b){return v<a?a:v>b?b:v;};
-    var vh=window.innerHeight;
-    /* stagger groups */
-    document.querySelectorAll('.approach-grid,.focus-list,.prose').forEach(function(g){
-      if(!g.classList.contains('reveal'))return;
-      g.classList.add('stagger');
-      Array.prototype.forEach.call(g.children,function(c,i){c.style.setProperty('--i',i);});
-    });
-    /* word-by-word text scrub */
-    var blocks=[];
-    function split(node,out){
-      Array.prototype.slice.call(node.childNodes).forEach(function(n){
-        if(n.nodeType===3){
-          var parts=n.nodeValue.split(/(\s+)/),frag=document.createDocumentFragment();
-          parts.forEach(function(t){
-            if(!t)return;
-            if(/^\s+$/.test(t)){frag.appendChild(document.createTextNode(t));}
-            else{var s=document.createElement('span');s.className='w';s.textContent=t;frag.appendChild(s);out.push(s);}
-          });
-          node.replaceChild(frag,n);
-        }else if(n.nodeType===1){split(n,out);}
-      });
-    }
-    document.querySelectorAll('#about .statement,.vision-text,.philosophy blockquote').forEach(function(el){
-      var words=[];split(el,words);
-      if(words.length){words.forEach(function(w){w.style.opacity='0.2';});blocks.push({el:el,words:words,last:-1});}
-    });
-    /* hero scrub */
-    var hero=document.querySelector('.hero'),photo=document.querySelector('.hero-photo');
-    var heroEls=hero?Array.prototype.slice.call(hero.querySelectorAll('.wrap > :not(img)')):[];
-    var h1=hero&&hero.querySelector('h1');
-    var ready=false;
-    function release(el){el.style.opacity='1';el.classList.remove('rise');}
-    heroEls.forEach(function(el){el.addEventListener('animationend',function(){release(el);},{once:true});});
-    if(photo){photo.addEventListener('animationend',function(e){
-      if(e.animationName==='photo-zoom'){photo.style.opacity='1';photo.style.animation='none';photo.classList.remove('rise');ready=true;}
-    });}else{ready=true;}
-    /* progress bar + nav */
-    var bar=document.createElement('div');bar.className='progress';bar.setAttribute('aria-hidden','true');document.body.appendChild(bar);
-    var nav=document.querySelector('header.nav'),ticking=false;
-    function frame(){
-      var y=window.pageYOffset||0,doc=document.documentElement,max=doc.scrollHeight-window.innerHeight;
-      bar.style.transform='scaleX('+(max>0?clamp(y/max,0,1):0)+')';
-      if(nav)nav.classList.toggle('scrolled',y>8);
-      /* hero */
-      if(y<vh*1.2){
-        var p=clamp(y/(vh*0.75),0,1);
-        heroEls.forEach(function(el,i){
-          if(el.classList.contains('rise'))return;
-          var isH=el===h1;
-          el.style.opacity=String(clamp(1-p*(isH?1.05:1.7),0,1));
-          el.style.translate='0 '+(-p*(isH?70:45)).toFixed(1)+'px';
-          if(isH)el.style.scale=String((1-p*0.14).toFixed(3));
-        });
-        if(photo&&ready){
-          photo.style.scale=String((1+p*0.14).toFixed(3));
-          photo.style.translate='0 '+(-p*26).toFixed(1)+'px';
-        }
-      }
-      /* words */
-      blocks.forEach(function(b){
-        var r=b.el.getBoundingClientRect();
-        if(r.bottom<-50||r.top>vh+50){if(r.top>vh+50&&b.last!==0){b.words.forEach(function(w){w.style.opacity='0.2';});b.last=0;}else if(r.bottom<-50&&b.last!==1){b.words.forEach(function(w){w.style.opacity='1';});b.last=1;}return;}
-        var p=max-y<4?1:clamp((vh*0.86-r.top)/(vh*0.46+r.height*0.55),0,1);
-        var n=b.words.length,span=p*(n+3);
-        b.words.forEach(function(w,i){
-          w.style.opacity=(0.2+0.8*clamp(span-i,0,3)/3).toFixed(2);
-        });
-        b.last=-1;
-      });
-      ticking=false;
-    }
-    window.addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(frame);}},{passive:true});
-    window.addEventListener('resize',function(){vh=window.innerHeight;if(!ticking){ticking=true;requestAnimationFrame(frame);}});
-    frame();
-    /* card spotlight */
-    if(window.matchMedia('(hover:hover) and (pointer:fine)').matches){
-      document.querySelectorAll('.principle').forEach(function(c){
-        c.addEventListener('pointermove',function(e){var r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px');});
-        c.addEventListener('pointerleave',function(){c.style.removeProperty('--mx');c.style.removeProperty('--my');});
-      });
-    }
-  }catch(e){}
-})();
-</script>
 </body>
 </html>
