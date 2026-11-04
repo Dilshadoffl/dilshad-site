@@ -159,7 +159,7 @@
     --bg-alt:#f5f5f7;
     --ink:#1d1d1f;
     --muted:#6e6e73;
-    --muted-2:#86868b;
+    --muted-2:#6e6e73;
     --line:rgba(0,0,0,0.12);
     --gold:#6d2334;
     --gold-hover:#8a2d44;
@@ -176,6 +176,7 @@
   }
   a{color:var(--gold);text-decoration:none;}
   a:hover{text-decoration:underline;}
+  p.lede a,.article p a{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;}
   ::selection{background:var(--gold);color:#fff;}
   .wrap{max-width:var(--max);margin:0 auto;padding:0 clamp(20px,5vw,40px);}
   :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px;}
