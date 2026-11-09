@@ -277,8 +277,8 @@
   .ig-follow{flex:none;}
   @media (max-width:700px){.ig-profile{flex-direction:column;align-items:flex-start;}.ig-info{flex:none;width:100%;}.ig-follow{align-self:stretch;text-align:center;}}
   .ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:clamp(32px,5vw,56px);}
-  .ig-frame{overflow:hidden;border-radius:20px;height:500px;background:var(--bg);}
-  .ig-frame iframe{display:block;width:100%;height:564px;border:0;margin-top:-64px;}
+  .ig-frame{overflow:hidden;border-radius:20px;aspect-ratio:100/130;background:var(--bg);}
+  .ig-frame iframe{display:block;width:100%;height:800px;border:0;margin-top:-64px;}
   @media (max-width:900px){.ig-grid{grid-template-columns:1fr;max-width:420px;margin-left:auto;margin-right:auto;}}
 
   /* ---------- approach cards ---------- */
